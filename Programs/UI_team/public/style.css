@@ -1,0 +1,21 @@
+/* style.css */
+body {
+  font-family: sans-serif;
+  padding: 20px;
+}
+h1 {
+  color: #333;
+}
+.sensor-data {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+}
+#temp {
+  font-weight: bold;
+  color: #d9534f;
+}
+#humidity {
+  font-weight: bold;
+  color: #5bc0de;
+}
