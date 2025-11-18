@@ -8,12 +8,42 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>ラズパイ センサーデータ</h1>
+  <h1>🪴 植物モニター</h1>
 
-  <div class="sensor-data">
-    <p>現在の温度: <span id="temp">--</span> ℃</p>
-    <p>現在の湿度: <span id="humidity">--</span> %</p>
-  </div>
+  <section class="card">
+    <h2>現在の環境</h2>
+    <div class="sensor-data">
+      <div class="data-item">
+        <span class="label">温度</span>
+        <span class="value"><span id="temp">--</span> ℃</span>
+      </div>
+      <div class="data-item">
+        <span class="label">湿度</span>
+        <span class="value"><span id="humidity">--</span> %</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>AI病気診断</h2>
+    <div id="diagnosis-container">
+      <div class="img-box">
+        <img id="plant-img" src="" alt="植物の画像">
+      </div>
+      <div class="diagnosis-info">
+        <p>診断結果: <span id="diagnosis-result" class="badge">--</span></p>
+        <p>信頼度: <span id="diagnosis-confidence">--</span>%</p>
+        <p class="timestamp">撮影日時: <span id="diagnosis-date">--</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>水やりの記録</h2>
+    <ul id="watering-list" class="history-list">
+      <li>データを読み込み中...</li>
+    </ul>
+  </section>
 
   <script src="main.js"></script>
 </body>

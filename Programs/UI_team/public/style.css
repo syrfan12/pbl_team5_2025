@@ -1,21 +1,99 @@
 /* style.css */
 body {
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   padding: 20px;
-}
-h1 {
+  background-color: #f0f2f5; /* 全体の背景を少しグレーに */
   color: #333;
+  max-width: 600px;
+  margin: 0 auto; /* 中央寄せ */
 }
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.2rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  margin-top: 0;
+  color: #555;
+}
+
+/* カード型デザインの共通クラス */
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+/* 環境データ */
 .sensor-data {
-  background-color: #f4f4f4;
-  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+.data-item {
+  text-align: center;
+}
+.label {
+  display: block;
+  font-size: 0.9rem;
+  color: #777;
+}
+.value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+#temp { color: #e74c3c; }
+#humidity { color: #3498db; }
+
+/* 診断結果 */
+.img-box {
+  text-align: center;
+  margin-bottom: 15px;
+}
+#plant-img {
+  width: 100%;
+  max-width: 300px;
   border-radius: 8px;
+  border: 1px solid #ddd;
 }
-#temp {
-  font-weight: bold;
-  color: #d9534f;
+.diagnosis-info p {
+  margin: 5px 0;
 }
-#humidity {
+.timestamp {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* 診断バッジ（正常・異常で色を変える用） */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
   font-weight: bold;
-  color: #5bc0de;
+  background-color: #95a5a6; /* デフォルト */
+}
+.badge.healthy { background-color: #2ecc71; } /* 正常：緑 */
+.badge.sick { background-color: #e74c3c; }    /* 異常：赤 */
+
+/* 水やり履歴リスト */
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.history-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+}
+.history-list li:last-child {
+  border-bottom: none;
 }
