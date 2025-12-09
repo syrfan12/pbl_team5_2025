@@ -1,49 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ラズパイモニター</title>
+  <title>植物モニター</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🪴 植物モニター</h1>
+  <header class="app-header">
+    <h1>🪴 植物モニター</h1>
+  </header>
 
-  <section class="card">
-    <h2>現在の環境</h2>
-    <div class="sensor-data">
-      <div class="data-item">
-        <span class="label">温度</span>
-        <span class="value"><span id="temp">--</span> ℃</span>
+  <main>
+    <section class="card latest-card">
+      <div class="card-header">
+        <h2>最新情報</h2>
+        <span class="timestamp-badge" id="latest-timestamp">--/-- --:--</span>
       </div>
-      <div class="data-item">
-        <span class="label">湿度</span>
-        <span class="value"><span id="humidity">--</span> %</span>
-      </div>
-    </div>
-  </section>
 
-  <section class="card">
-    <h2>AI病気診断</h2>
-    <div id="diagnosis-container">
-      <div class="img-box">
-        <img id="plant-img" src="" alt="植物の画像">
-      </div>
-      <div class="diagnosis-info">
-        <p>診断結果: <span id="diagnosis-result" class="badge">--</span></p>
-        <p>信頼度: <span id="diagnosis-confidence">--</span>%</p>
-        <p class="timestamp">撮影日時: <span id="diagnosis-date">--</span></p>
-      </div>
-    </div>
-  </section>
+      <div class="latest-content">
+        <div class="main-image-box">
+          <img id="latest-img" src="" alt="最新の植物画像">
+          <div class="status-overlay">
+            <span id="latest-result" class="badge">--</span>
+          </div>
+        </div>
 
-  <section class="card">
-    <h2>水やりの記録</h2>
-    <ul id="watering-list" class="history-list">
-      <li>データを読み込み中...</li>
-    </ul>
-  </section>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">検知結果</span>
+            <span class="value-text" id="latest-result-text">--</span>
+          </div>
+          <div class="info-item">
+            <span class="label">最終水やり</span>
+            <span class="value-text" id="latest-water">--</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card history-card">
+      <h2>過去の記録</h2>
+      <div class="timeline-container">
+        <ul id="history-list" class="timeline-list">
+          <li>読み込み中...</li>
+        </ul>
+      </div>
+    </section>
+  </main>
 
   <script src="main.js"></script>
 </body>

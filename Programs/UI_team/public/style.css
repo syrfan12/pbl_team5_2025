@@ -1,99 +1,201 @@
 /* style.css */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  padding: 20px;
-  background-color: #f0f2f5; /* 全体の背景を少しグレーに */
-  color: #333;
-  max-width: 600px;
-  margin: 0 auto; /* 中央寄せ */
+:root {
+  --primary-color: #4CAF50;
+  --bg-color: #f4f9f4;
+  --card-bg: #ffffff;
+  --text-main: #333333;
+  --text-sub: #666666;
+  --border-color: #eeeeee;
 }
 
-h1 {
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  margin: 0;
+  padding: 20px;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.app-header h1 {
   text-align: center;
-  color: #2c3e50;
+  color: var(--primary-color);
+  font-size: 1.5rem;
   margin-bottom: 20px;
+}
+
+/* カード共通 */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
 }
 
 h2 {
-  font-size: 1.2rem;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-  margin-top: 0;
-  color: #555;
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--text-main);
 }
 
-/* カード型デザインの共通クラス */
-.card {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-}
-
-/* 環境データ */
-.sensor-data {
-  display: flex;
-  justify-content: space-around;
-}
-.data-item {
-  text-align: center;
-}
-.label {
-  display: block;
-  font-size: 0.9rem;
-  color: #777;
-}
-.value {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-#temp { color: #e74c3c; }
-#humidity { color: #3498db; }
-
-/* 診断結果 */
-.img-box {
-  text-align: center;
-  margin-bottom: 15px;
-}
-#plant-img {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-.diagnosis-info p {
-  margin: 5px 0;
-}
-.timestamp {
+.timestamp-badge {
   font-size: 0.85rem;
-  color: #888;
-}
-
-/* 診断バッジ（正常・異常で色を変える用） */
-.badge {
-  display: inline-block;
+  color: var(--text-sub);
+  background: #f0f0f0;
   padding: 4px 8px;
   border-radius: 4px;
+}
+
+/* --- 最新情報エリア --- */
+.main-image-box {
+  position: relative;
+  width: 80%; /* ← 幅を100%から80%に変更して小さくします */
+  margin: 0 auto 16px; /* ← 左右をautoにして中央寄せにします */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#latest-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* 画像がない時の高さ確保 */
+  min-height: 200px;
+  background-color: #eee;
+}
+
+.status-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
   color: #fff;
   font-weight: bold;
-  background-color: #95a5a6; /* デフォルト */
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.badge.healthy { background-color: #2ecc71; } /* 正常：緑 */
-.badge.sick { background-color: #e74c3c; }    /* 異常：赤 */
+.badge.healthy { background-color: #4CAF50; } /* 緑 */
+.badge.warning { background-color: #FF9800; } /* オレンジ */
+.badge.sick { background-color: #e53935; }    /* 赤 */
 
-/* 水やり履歴リスト */
-.history-list {
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.info-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  margin-bottom: 4px;
+}
+
+.value-text {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* --- 過去の記録（タイムライン） --- */
+.timeline-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  position: relative;
+  padding-left: 10px;
 }
-.history-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+
+/* 縦線 */
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 6px;
+  width: 2px;
+  background-color: #e0e0e0;
+}
+
+.timeline-list li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 24px;
+}
+
+.timeline-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* タイムラインの丸ポチ */
+.timeline-list li::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px; /* 画像の高さに合わせて調整 */
+  width: 14px;
+  height: 14px;
+  background-color: var(--primary-color);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #e0e0e0;
+  z-index: 1;
+}
+
+/* 履歴アイテムのレイアウト */
+.history-item-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 5px;
 }
-.history-list li:last-child {
-  border-bottom: none;
+
+.history-date {
+  font-size: 0.85rem;
+  color: var(--text-sub);
+  font-weight: bold;
+}
+
+.history-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.history-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #eee;
+}
+
+.history-result {
+  font-weight: bold;
+  font-size: 0.95rem;
 }
