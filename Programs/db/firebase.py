@@ -23,7 +23,7 @@ import os
 SERVICE_ACCOUNT_FILE = "serviceAccountKey.json"
 
 # Firestore plant ID (you only have one plant)
-PLANT_ID = "pbl-2025-bde03"
+PLANT_ID = "pbl-team5-app"
 
 # Enable or disable image upload
 USE_IMAGE_UPLOAD = False          # set to True if you want to upload images
