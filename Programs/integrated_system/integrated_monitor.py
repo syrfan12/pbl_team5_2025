@@ -13,10 +13,10 @@ Requirements:
     pip install firebase-admin opencv-python inference-sdk requests RPi.GPIO gpiozero dht11
 
 Setup:
-    1. Fill config_firebase.json with Firebase credentials
-    2. Fill config_roboflow.json with Roboflow API key
-    3. Fill config_imgbb.json with imgbb API key
-    4. Place serviceAccountKey.json in this folder
+    1. Download serviceAccountKey.json from Firebase Console and place it here
+    2. Fill config_settings.json with Firebase bucket, plant_id, and other settings
+    3. Fill config_roboflow.json with Roboflow API key
+    4. Fill config_imgbb.json with imgbb API key
 """
 
 import os
@@ -46,22 +46,27 @@ except ImportError:
 # ==================== CONFIG ====================
 
 # Load configurations
-with open("config_firebase.json", "r") as f:
-    firebase_config = json.load(f)
-
 with open("config_roboflow.json", "r") as f:
     roboflow_config = json.load(f)
 
 with open("config_imgbb.json", "r") as f:
     imgbb_config = json.load(f)
 
-# Settings
-CAMERA_INDEX = 0
+with open("config_settings.json", "r") as f:
+    settings_config = json.load(f)
+
+# Settings from config file
+FIREBASE_SERVICE_ACCOUNT = settings_config.get("firebase_service_account_file", "serviceAccountKey.json")
+FIREBASE_STORAGE_BUCKET = settings_config.get("firebase_storage_bucket", "your-project-id.appspot.com")
+PLANT_ID = settings_config.get("plant_id", "pbl-team5-app")
+CAMERA_INDEX = settings_config.get("camera_index", 0)
+INTERVAL_SECONDS = settings_config.get("interval_seconds", 3600)  # 1 hour = 3600 seconds
+SOIL_SENSOR_PIN = settings_config.get("soil_sensor_pin", 17)
+DHT_SENSOR_PIN = settings_config.get("dht_sensor_pin", 14)
+
+# Directory settings
 IMAGES_DIR = "captured_images"
 INFERENCE_DIR = "inference_results"
-INTERVAL_SECONDS = 3600  # 1 hour = 3600 seconds
-SOIL_SENSOR_PIN = 17
-DHT_SENSOR_PIN = 14
 
 # ================================================
 
@@ -77,9 +82,9 @@ def init_gpio():
 
 def init_firebase():
     """Initialize Firebase Admin SDK"""
-    cred = credentials.Certificate(firebase_config["service_account_file"])
+    cred = credentials.Certificate(FIREBASE_SERVICE_ACCOUNT)
     firebase_admin.initialize_app(cred, {
-        "storageBucket": firebase_config["storage_bucket"]
+        "storageBucket": FIREBASE_STORAGE_BUCKET
     })
     db = firestore.client()
     print("[INFO] Firebase initialized")
@@ -274,7 +279,7 @@ def send_to_firebase(db, sensor_data, health_status, detected_classes, image_url
     # Send to Firestore
     readings_ref = (
         db.collection("plants")
-          .document(firebase_config["plant_id"])
+          .document(PLANT_ID)
           .collection("readings")
     )
     
