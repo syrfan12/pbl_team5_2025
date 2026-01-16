@@ -1,0 +1,7 @@
+firebase-admin
+opencv-python
+inference-sdk
+requests
+RPi.GPIO
+gpiozero
+dht11

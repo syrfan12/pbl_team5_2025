@@ -1,0 +1,32 @@
+# Ignore credentials
+serviceAccountKey.json
+config_firebase.json
+config_roboflow.json
+config_imgbb.json
+
+# Ignore captured data
+captured_images/
+inference_results/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
