@@ -10,7 +10,7 @@ from firebase_admin import credentials, firestore
 
 # === CONFIG ===
 SERVICE_ACCOUNT_FILE = "serviceAccountKey.json"  # same file as before
-PLANT_ID = "pbl-2025-bde03"                             # same plant id
+PLANT_ID = "pbl-team5-app"                             # same plant id
 
 
 # === INIT FIREBASE ===
