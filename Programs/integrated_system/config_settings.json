@@ -1,6 +1,5 @@
 {
   "firebase_service_account_file": "serviceAccountKey.json",
-  "firebase_storage_bucket": "your-project-id.appspot.com",
   "plant_id": "pbl-team5-app",
   "camera_index": 0,
   "interval_seconds": 3600,

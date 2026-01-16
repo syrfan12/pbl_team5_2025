@@ -14,9 +14,9 @@ Requirements:
 
 Setup:
     1. Download serviceAccountKey.json from Firebase Console and place it here
-    2. Fill config_settings.json with Firebase bucket, plant_id, and other settings
+    2. Fill config_settings.json with plant_id and other settings
     3. Fill config_roboflow.json with Roboflow API key
-    4. Fill config_imgbb.json with imgbb API key
+    4. Fill config_imgbb.json with imgbb API key (for image uploads)
 """
 
 import os
@@ -29,7 +29,7 @@ from pathlib import Path
 
 # Firebase imports
 import firebase_admin
-from firebase_admin import credentials, firestore, storage
+from firebase_admin import credentials, firestore
 
 # Roboflow imports
 from inference_sdk import InferenceHTTPClient
@@ -57,7 +57,6 @@ with open("config_settings.json", "r") as f:
 
 # Settings from config file
 FIREBASE_SERVICE_ACCOUNT = settings_config.get("firebase_service_account_file", "serviceAccountKey.json")
-FIREBASE_STORAGE_BUCKET = settings_config.get("firebase_storage_bucket", "your-project-id.appspot.com")
 PLANT_ID = settings_config.get("plant_id", "pbl-team5-app")
 CAMERA_INDEX = settings_config.get("camera_index", 0)
 INTERVAL_SECONDS = settings_config.get("interval_seconds", 3600)  # 1 hour = 3600 seconds
@@ -83,9 +82,7 @@ def init_gpio():
 def init_firebase():
     """Initialize Firebase Admin SDK"""
     cred = credentials.Certificate(FIREBASE_SERVICE_ACCOUNT)
-    firebase_admin.initialize_app(cred, {
-        "storageBucket": FIREBASE_STORAGE_BUCKET
-    })
+    firebase_admin.initialize_app(cred)
     db = firestore.client()
     print("[INFO] Firebase initialized")
     return db
